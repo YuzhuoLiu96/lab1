@@ -37,8 +37,10 @@ int main()
 	double f_error;
 	double a_solution = 11;
 	double l2_er = 0.0;
+	double l2_cnt = 0.0;
 	double l0_er = 0.0;
 	double li_fw = 0.0;
+	double li_cnt = 0.0;
 	double increment = 1.05;
 	
 	fs.open(filename);
@@ -46,7 +48,7 @@ int main()
 //	Write a C++ program which solves the above problem on a uniform grid
 //of spacing h = 0.1
 
-	fs << "x" << ", " << "fwd" << ", " << "fwd error" << ", " << "back" << ", " << "back error" << ", " << "center" <<
+	fs << "x" << ", " << "fwd" << ", " << "fwd error" << ", " << "center" <<
 		", " << "center error" << ", " << "f'(x)" << " ," << "dx" << endl;
 
   for (int j = 0; j < 5; j++)
@@ -65,27 +67,27 @@ int main()
 		   " f'x: " << f_prime_x(x) << " step size :" << delta_x << endl;*/
 
 
-		 cout << "x = " << x <<" \t fwd error: " << f_error /*<< "\t bwd error: " << b_error */ << "\t center scheme: " << c_error << "\t f'x: " << f_prime_x(x) << "\t step size :" << delta_x << endl;
+		 //cout << "x = " << x <<" \t fwd error: " << f_error /*<< "\t bwd error: " << b_error */ << "\t center scheme: " << c_error << "\t f'x: " << f_prime_x(x) << "\t step size :" << delta_x << endl;
 
 
-
-			 fs << x << ", " << fwd(x, delta_x) << ", " << f_error << ", " /*<< back(x, delta_x) << ", " << b_error */<< ", " << center(x, delta_x) <<
+			 fs << x << ", " << fwd(x, delta_x) << ", " << f_error << ", " << center(x, delta_x) <<
 				 ", " << c_error << ", " << f_prime_x(x) << " ," << delta_x << endl;
 
 
 			center_error.push_back(abs(c_error));
 			forward_error.push_back(abs(f_error));
 			l2_er += pow(abs(f_error),2);
+			l2_cnt += pow(abs(c_error), 2);
 
 			 x += delta_x;
 		 } while (x < 1 + (delta_x/2));
 		 //while (x < 1 + delta_x);
-			//if(number > xxx + 1*pow(10,-5) && number < xxx - 1*pow(10,-5))
+		
 		/*for (size_t i = 0; i < center_error.size(); i++)
 		{
 			cout <<  center_error[i];
 		}*/
-		 cout << "l2 is " << l2_er/(1/delta_x) << endl;
+		 fs << " FORWARD: " << "l2 is " << l2_er/(1/delta_x) << endl << " CENTRE: " << "l2 is " << l2_cnt / (1 / delta_x) <<endl;
 
 
 		 for (int i = 0; i < forward_error.size(); i++) {
@@ -98,8 +100,8 @@ int main()
 		 }
 
 		 for (int i = 0; i < center_error.size(); i++) {
-			 if (abs(center_error[i]) > li_fw) {
-				 li_fw = center_error[i];
+			 if (abs(center_error[i]) > li_cnt) {
+				 li_cnt = center_error[i];
 			 }
 			 else {
 				 continue;
@@ -107,12 +109,12 @@ int main()
 		 }
 
 
+		 fs << "FORWARD l0: " << li_fw << endl << "CENTRE l0: " << li_cnt<< endl;
+
+		 //std::cout << "L infinite for forward diff: " << li_fw << "\n";
 
 
-		 std::cout << "L infinite for forward diff: " << li_fw << "\n";
-
-
-		cout << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ << "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;
+		//fs << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) << endl /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ << "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;
 	x=0;
 	delta_x*=0.1; //decreases delta x
 	
