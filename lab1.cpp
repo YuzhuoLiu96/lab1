@@ -88,9 +88,29 @@ int main()
 		}*/
 		 cout << "l2 is " << l2_er/(1/delta_x) << endl;
 
-		 li_fw = forward_error[forward_error.end()];
-		 
-		// ofs << "L infinite for forward diff: " << li_fw << "\n";
+
+		 for (int i = 0; i < forward_error.size(); i++) {
+			 if (abs(forward_error[i]) > li_fw) {
+				 li_fw = forward_error[i];
+			 }
+			 else {
+				 continue;
+			 }
+		 }
+
+		 for (int i = 0; i < center_error.size(); i++) {
+			 if (abs(center_error[i]) > li_fw) {
+				 li_fw = center_error[i];
+			 }
+			 else {
+				 continue;
+			 }
+		 }
+
+
+
+
+		 std::cout << "L infinite for forward diff: " << li_fw << "\n";
 
 
 		cout << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ << "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;
@@ -99,7 +119,6 @@ int main()
 	
 	}
 
-  // hello
   fs.close();
 
   cout << "enter to stop" << endl;
