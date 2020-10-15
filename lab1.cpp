@@ -39,6 +39,7 @@ int main()
 	double l2_er = 0.0;
 	double l0_er = 0.0;
 	double li_fw = 0.0;
+	double increment = 1.05;
 	
 	fs.open(filename);
 
@@ -48,7 +49,7 @@ int main()
 	fs << "x" << ", " << "fwd" << ", " << "fwd error" << ", " << "back" << ", " << "back error" << ", " << "center" <<
 		", " << "center error" << ", " << "f'(x)" << " ," << "dx" << endl;
 
-  for (int j = 0; j < 1; j++)
+  for (int j = 0; j < 5; j++)
 	{
          cout << j;
           
@@ -56,9 +57,6 @@ int main()
 
 		 do
 		 {
-
-			 
-
 			 c_error = center(x, delta_x) - f_prime_x(x);
 			 f_error = fwd(x, delta_x) - f_prime_x(x);
 			// b_error = back(x, delta_x) - f_prime_x(x);
@@ -80,8 +78,9 @@ int main()
 			l2_er += pow(abs(f_error),2);
 
 			 x += delta_x;
-		 } while (x < 1 + delta_x);
-			
+		 } while (x < 1 + (delta_x/2));
+		 //while (x < 1 + delta_x);
+			//if(number > xxx + 1*pow(10,-5) && number < xxx - 1*pow(10,-5))
 		/*for (size_t i = 0; i < center_error.size(); i++)
 		{
 			cout <<  center_error[i];
