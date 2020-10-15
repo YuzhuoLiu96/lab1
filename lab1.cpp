@@ -37,8 +37,10 @@ int main()
 	double f_error;
 	double a_solution = 11;
 	double l2_er = 0.0;
+	double l2_cnt = 0.0;
 	double l0_er = 0.0;
 	double li_fw = 0.0;
+	double li_cnt = 0.0;
 	
 	fs.open(filename);
 
@@ -78,6 +80,7 @@ int main()
 			center_error.push_back(abs(c_error));
 			forward_error.push_back(abs(f_error));
 			l2_er += pow(abs(f_error),2);
+			l2_cnt += pow(abs(c_error), 2);
 
 			 x += delta_x;
 		 } while (x < 1 + delta_x);
@@ -86,8 +89,8 @@ int main()
 		{
 			cout <<  center_error[i];
 		}*/
-		 cout << "l2 is " << l2_er/(1/delta_x) << endl;
-
+		 cout << "FORWARD:" << " l2 is " << l2_er/(1/delta_x) << endl;
+		 cout << "CENTRE:" << " l2 is " << l2_cnt / (1 / delta_x) << endl;
 
 		 for (int i = 0; i < forward_error.size(); i++) {
 			 if (abs(forward_error[i]) > li_fw) {
@@ -98,22 +101,19 @@ int main()
 			 }
 		 }
 
+		 std::cout << "L infinite for forward diff: " << li_fw << "\n";
+
 		 for (int i = 0; i < center_error.size(); i++) {
 			 if (abs(center_error[i]) > li_fw) {
-				 li_fw = center_error[i];
+				 li_cnt = center_error[i];
 			 }
 			 else {
 				 continue;
 			 }
 		 }
+		 std::cout << "L infinite for forward diff: " << li_cnt << "\n";
 
-
-
-
-		 std::cout << "L infinite for forward diff: " << li_fw << "\n";
-
-
-		cout << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ << "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;
+		cout << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) << endl << /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;
 	x=0;
 	delta_x*=0.1; //decreases delta x
 	
