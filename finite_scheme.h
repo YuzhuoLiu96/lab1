@@ -11,7 +11,9 @@ class finite_scheme
 	double x = 0;
 	double delta_x = 0.1;
 	double error;
+	double discreet_value;
 	vector<double> error_v;
+	vector<double> discreet_values;
 	vector<double> in;
 
 
@@ -31,7 +33,6 @@ private:
 	double calc_l1(vector<double> in);
 	double calc_l2(vector<double> in);
 	double f(double x);// can this be made more flexible by passing in functions as args?
-
 	double f_prime_x(double x) {return 9 * pow(x, 2) + 2; }; // f'(x);
 	vector<double> scheme();
 	double scheme_function(double x, double delta_x);

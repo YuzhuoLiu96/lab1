@@ -18,7 +18,7 @@ auto f= [](double x) { return 3 * pow(x, 3) + 2 * x + 1; }; // orig func.//retur
 auto center = [&](double x, double delta_x) {return ((f(x + delta_x) - f(x - delta_x)) / delta_x)*0.5; };
 auto f_prime_x = [](double x) {return 9 * pow(x, 2) + 2; }; // f'(x);
 auto fwd = [&](double x, double delta_x) {return (f(x + delta_x) - f(x)) / delta_x; };
-auto back = [&](double x, double delta_x) {areturn  (f(x) - f(x - delta_x)) / delta_x; };
+auto back = [&](double x, double delta_x) {return  (f(x) - f(x - delta_x)) / delta_x; };
 
 
 int main()
@@ -79,18 +79,18 @@ int main()
 	//		
 
 
-	////	 finite_scheme fd = finite_scheme(forward_error);
-	//	 finite_scheme cnt = finite_scheme();
-	////	 finite_scheme bd = finite_scheme(backward_error);
-	//	 
+	//	 finite_scheme fd = finite_scheme(forward_error);
+		 finite_scheme cnt = finite_scheme();
+	//	 finite_scheme bd = finite_scheme(backward_error);
+		 
 
-	////	 cout << "finite_Scheme class lmax calc. forward = " << fd.get_lmax() << endl;
-	//	 cout << "finite_Scheme class lmax calc. cnt = " << cnt.get_lmax() << endl;
-	////	 cout << "finite_Scheme class lmax calc. bd = " << bd.get_lmax() << endl;
-	////	 cout << "finite_Scheme class l2 calc. forward = " << fd.get_l2() / (1 / delta_x )<< endl;
-	//	 cout << "finite_Scheme class l2 calc. cnt = " << cnt.get_l2() / (1 / delta_x) << endl;
-	//	 //	 cout << "finite_Scheme class lmax calc. bd = " << bd.get_lmax() << endl;
-	//	 
+	//	 cout << "finite_Scheme class lmax calc. forward = " << fd.get_lmax() << endl;
+		 cout << "finite_Scheme class lmax calc. cnt = " << cnt.get_lmax() << endl;
+	//	 cout << "finite_Scheme class lmax calc. bd = " << bd.get_lmax() << endl;
+	//	 cout << "finite_Scheme class l2 calc. forward = " << fd.get_l2() / (1 / delta_x )<< endl;
+		 cout << "finite_Scheme class l2 calc. cnt = " << cnt.get_l2() / (1 / delta_x) << endl;
+		 //	 cout << "finite_Scheme class lmax calc. bd = " << bd.get_lmax() << endl;
+		 
 
 
 	//	cout << "center error :" << accumulate(center_error.begin(), center_error.end(), 0.0) << endl << /*<< "back error :" << accumulate(backward_error.begin(), backward_error.end(), 0.0)*/ "forward error :" << accumulate(forward_error.begin(), forward_error.end(), 0.0) <<  endl;

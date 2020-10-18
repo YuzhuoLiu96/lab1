@@ -65,10 +65,12 @@ vector<double> finite_scheme::scheme()
 
 	do
 	{
-
-		error = scheme_function(x, delta_x) - f_prime_x(x);
+		discreet_value = scheme_function(x, delta_x);
+		error = discreet_value - f_prime_x(x);
 		error_v.push_back(error);
-	} while (x <= 1.001);
+		cout << "x=" << x << "delta_x =" << delta_x << "f_prime_x =" << f_prime_x(x) << "error = " << error << "discreet value =" << discreet_value << endl;
+		x += delta_x;
+	} while (x <= 1);
 
 	return error_v;
 }
