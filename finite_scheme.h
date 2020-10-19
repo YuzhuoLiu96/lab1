@@ -23,7 +23,9 @@ public:
 	double get_lmax();
 	double get_l1();
 	double get_l2();
-
+	void get_print()
+	void print_error()
+	
 	// functions to get norms;
 
 private:

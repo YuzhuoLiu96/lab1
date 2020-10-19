@@ -9,9 +9,28 @@ finite_scheme::finite_scheme()
 	l2 = calc_l2(in);
 }
 
-finite_scheme::~finite_scheme()
+finite_scheme::get_print()
 {
+
+	for (i = 0, i < 9, i++)
+	{
+		
+		cout << "x = " << x << " fwd scheme: " << fwd(x, delta_x) << " bwd scheme: " << back(x, delta_x) << " center scheme: " << center(x, delta_x) << " f'x: " << f_prime_x(x) << " step size :" << delta_x << endl;
+		x += 0.1;
+	}
 }
+
+finite_scheme::print_error()
+{
+	for (i = 0, i < 9, i++)
+	{
+		
+		cout << "x = " << x << " \t fwd error: " << f_error /*<< "\t bwd error: " << b_error */ << "\t center scheme: " << c_error << "\t f'x: " << f_prime_x(x) << "\t step size :" << delta_x << endl;
+		x += 0.1;
+	}
+}
+
+
 
 double finite_scheme::get_lmax()
 {
@@ -60,15 +79,16 @@ double finite_scheme::f(double x){ return 3 * pow(x, 3) + 2 * x + 1; }
 
 vector<double> finite_scheme::scheme()
 {
-
-	cout << "\n scheme loop";
+	cout << "------------------------------------------------ Lab1 Room 20 ----------------------------------------------------------\n\n";
+	cout << "                                                 scheme loop\n\n";
 
 	do
 	{
 		discreet_value = scheme_function(x, delta_x);
 		error = discreet_value - f_prime_x(x);
 		error_v.push_back(error);
-		cout << "x=" << x << "delta_x =" << delta_x << "f_prime_x =" << f_prime_x(x) << "error = " << error << "discreet value =" << discreet_value << endl;
+		cout << "x" << x << "delta_x " << delta_x << "f_prime_x " << f_prime_x(x) << "error " << error << "discreet value " << discreet_value << endl;
+		cout << "\n";
 		x += delta_x;
 	} while (x <= 1);
 
@@ -76,3 +96,9 @@ vector<double> finite_scheme::scheme()
 }
 
 double finite_scheme::scheme_function(double x, double delta_x) { return ((f(x + delta_x) - f(x - delta_x)) / delta_x) * 0.5; };
+
+
+	
+
+
+
